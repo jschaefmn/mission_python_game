@@ -1,6 +1,5 @@
-# Space Walk
-# by Sean McManus
-# www.sean.co.uk / www.nostarch.com
+import pgzero.clock as clock
+import pgzrun
 
 WIDTH = 800
 HEIGHT = 600
@@ -25,3 +24,4 @@ def game_loop():
         player_y += 5
 
 clock.schedule_interval(game_loop, 0.03)
+pgzrun.go()
