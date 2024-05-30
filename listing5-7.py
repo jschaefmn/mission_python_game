@@ -18,6 +18,14 @@ top_left_y = 150
 
 DEMO_OBJECTS = [images.floor, images.pillar, images.soil]
 
+LANDER_SECTOR = random.randint(1,24)
+LANDER_X = random.randint(2, 11)
+LANDER_Y = random.randint(2, 11)
+
+#########
+## MAP ##
+#########
+
 MAP_WIDTH = 5
 MAP_HEIGHT = 10
 MAP_SIZE = MAP_WIDTH * MAP_HEIGHT
@@ -59,6 +67,30 @@ GAME_MAP  += [
 
 # simple sanity check on map above to check data entry
 assert len(GAME_MAP) - 1 == MAP_SIZE, "Map size and GAME_MAP don't match"
+
+#############
+## OBJECTS ##
+#############
+
+objects = {
+  0: [images.floor, None, "The floor is shiny and clean"],
+  1: [images.pillar, images.full_shadow, "The wall is smooth and cold"],
+  2: [images.soil, None, "It's like the desert. Or should that be dessert?"],
+  3: [images.pillar_low, images.half_shadow, "The wall is smooth and cold"],
+  4: [images.bed, images.half_shadow, "A tidy and comfortbable bed"],
+  5: [images.table, images.half_shadow, "It's made from strong plastic"],
+  6: [images.chair_left, None, "A chair with a soft cushion"],
+  7: [images.chair_right, None, "A chair with a soft cushion"],
+  8: [images.bookcase_tall, images.full_shadow, 
+      "Bookshelves, stacked with reference books"],
+  9: [images.bookcase_small, images.half_shadow, 
+      "Bookshelves, stacked with reference books"],
+  10: [images.cabinet, images.half_shadow,
+       "A small locker, for storing personal items"],
+  11: [images.desk_computer, images.half_shadow,
+       "A computer. Use it to run life support diagnostics"],
+  12: [images.plant, images.plant_shadow, "A spaceberry plant, grown here"]
+}
 
 ##############
 ## MAKE MAP ##
@@ -138,9 +170,18 @@ def draw():
   generate_map()
   screen.clear()
   
+  # listing 5-7
+  room_map[2][4] = 7
+  room_map[2][6] = 6
+  room_map[1][1] = 8
+  room_map[1][2] = 9
+  room_map[1][8] = 12
+  room_map[1][9] = 9
+  
   for y in range(room_height):
     for x in range (room_width):
-      image_to_draw = DEMO_OBJECTS[room_map[y][x]]
+      # image_to_draw = DEMO_OBJECTS[room_map[y][x]]
+      image_to_draw = objects[room_map[y][x]][0]
       screen.blit(image_to_draw,
                   (top_left_x + (x * 30),
                    top_left_y + (y * 30) - image_to_draw.get_height()))
